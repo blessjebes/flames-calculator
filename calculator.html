@@ -1,0 +1,131 @@
+<!-- calculator.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FLAMES Love Calculator</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        background-color: #222;
+        color: #fff;
+      }
+
+      .heart {
+        animation: pulse 1s infinite alternate;
+      }
+
+      @keyframes pulse {
+        from {
+          transform: scale(1);
+        }
+
+        to {
+          transform: scale(1.2);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container text-center mt-5">
+      <h1 class="mb-4">FLAMES Love Calculator</h1>
+      <form id="loveCalculatorForm">
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            id="yourName"
+            placeholder="Your Name"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            id="partnerName"
+            placeholder="Partner's Name"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg">Calculate</button>
+      </form>
+      <div id="result" class="mt-4"></div>
+    </div>
+
+    <script>
+      document
+        .getElementById("loveCalculatorForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          var yourName = document
+            .getElementById("yourName")
+            .value.trim()
+            .toLowerCase();
+          var partnerName = document
+            .getElementById("partnerName")
+            .value.trim()
+            .toLowerCase();
+          var result = calculateFLAMES(yourName, partnerName);
+          displayResult(result);
+        });
+
+      var flames = ["Friends", "Love", "Affair", "Marriage", "Enemy", "Sister"];
+
+      function calculateFLAMES(yourName, partnerName) {
+        var lengthInput = yourName.length + partnerName.length;
+
+        let result = [...flames];
+        while (result.length != 1) {
+            result = result.splice(lengthInput % 6, 1);
+        }
+        return result;
+
+        // var letters = flames.split("");
+        // for (var i = 0; i < yourName.length; i++) {
+        //   for (var j = 0; j < partnerName.length; j++) {
+        //     if (yourName[i] === partnerName[j]) {
+        //       var commonLetter = yourName[i];
+        //       yourName = yourName.replace(commonLetter, "");
+        //       partnerName = partnerName.replace(commonLetter, "");
+        //       break;
+        //     }
+        //   }
+        // }
+        // var remainingLetters = yourName + partnerName;
+        // var flamesCount = remainingLetters.length % letters.length;
+        // console.log("flamesCount:",flamesCount)
+        // return letters[flamesCount];
+      }
+
+      function displayResult(message) {
+        var resultContainer = document.getElementById("result");
+        var message;
+        if (message == "Friendship") {
+          resultContainer.innerHTML =
+            "You're meant to be friends. So Don't Overthink!";
+        } else if (message == "Love") {
+          resultContainer.innerHTML = "Congratulations! Love is in the air.";
+        } else if (message == "Affection") {
+          resultContainer.innerHTML = "Aww! Affectionate relationship ahead.";
+        } else if (message == "Marriage") {
+          resultContainer.innerHTML =
+            "Wow! You're meant to get married. Congratulations!";
+        } else if (message == "Enemy") {
+          resultContainer.innerHTML =
+            "Please don't go on this path, my friend!!";
+        } else if (message == "Siblings") {
+          resultContainer.innerHTML = "You're more like siblings.";
+        } else {
+          resultContainer.innerHTML = "Oops! Something went wrong.";
+        }
+      }
+    </script>
+  </body>
+</html>
